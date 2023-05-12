@@ -1,0 +1,65 @@
+class Menu extends Phaser.Scene {
+    constructor() {
+        super("menuScene");
+    }
+
+    preload() {
+    }
+
+    create() {
+        // find background - this.smth = this.add.tileSprite(0, 0, 640, 480, 'smth').setOrigin(0, 0);
+
+        //menu text config
+        let menuConfig = {
+            fontFamily: 'Courier',
+            fontSize: '28px',
+            color: '#843605',
+            align: 'right',
+            padding: {
+                top: 5,
+                bottom: 5,
+            },
+            fixedWidth: 0
+        }
+
+        //show menu text
+        menuConfig.fontSize = '40px';
+        menuConfig.color = '#5424f0';
+        this.add.text(game.config.width/2, borderUISize + borderPadding*2, 'Bounce!', menuConfig).setOrigin(0.5);
+        menuConfig.fontSize = '28px';
+        menuConfig.color = '#2a00b3';
+        this.add.text(game.config.width/2, game.config.height/2, 'Use arrows to move, jump on the platforms and avoid obstacles', menuConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2 + borderUISize + borderPadding, 'Press <- for Novice or -> for Expert', menuConfig).setOrigin(0.5);
+
+        //define keys
+        keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
+        keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+    }
+
+    update() {
+        if (Phaser.Input.Keyboard.JustDown(keyLEFT)) {
+            //easy mode
+            game.settings = {
+                /* make it do stuff!
+                spaceshipSpeed: 3,
+                smallshipSpeed: 4,
+                gameTimer: 60000
+                */
+            }
+            //this.sound.play('sfx_select');
+            this.scene.start('playScene');
+        }
+        if (Phaser.Input.Keyboard.JustDown(keyRIGHT)) {
+            //hard mode
+            game.settings = {
+                /*
+                spaceshipSpeed: 4,
+                smallshipSpeed:5,
+                gameTimer: 45000
+                */
+            }
+            //this.sound.play('sfx_select');
+            this.scene.start('playScene');
+        }
+    }
+}
