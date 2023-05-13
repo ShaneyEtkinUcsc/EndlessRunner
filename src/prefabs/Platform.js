@@ -1,7 +1,7 @@
-class Barrier extends Phaser.Physics.Arcade.Sprite {
-    constructor(scene, velocity) {
+class Platform extends Phaser.Physics.Arcade.Sprite {
+    constructor(scene, velocity, texture) {
         // call Phaser Physics Sprite constructor
-        super(scene, game.config.width + paddleWidth, Phaser.Math.Between(paddleHeight/2, game.config.height - paddleHeight/2), 'paddle'); 
+        super(scene, game.config.width + paddleWidth, Phaser.Math.Between(paddleHeight/2, game.config.height - paddleHeight/2), texture); 
         
         this.parentScene = scene;               // maintain scene context
 
@@ -28,3 +28,28 @@ class Barrier extends Phaser.Physics.Arcade.Sprite {
         }
     }
 }
+
+/*
+class Spaceship extends Phaser.GameObjects.Sprite {
+    constructor(scene, x, y, texture, frame, pointValue) {
+        super(scene, x, y, texture, frame);
+        scene.add.existing(this); //add to existing scene
+        this.points = pointValue; //stor pointValue
+        this.moveSpeed = game.settings.spaceshipSpeed;
+    }
+
+    update() {
+        //move spaceship left
+        this.x -= this.moveSpeed;
+        //wrap around (this is neat :) )
+        if(this.x <= 0 - this.width) {
+            this.reset();
+        }
+    }
+
+    //position reset
+    reset() {
+        this.x = game.config.width;
+    }
+}
+*/

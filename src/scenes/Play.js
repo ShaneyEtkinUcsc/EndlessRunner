@@ -93,8 +93,8 @@ class Menu extends Phaser.Scene {
     // EDIT TO ADD PLATFORMS USING PLATFORM IMAGE
     addPlatform() { //LOOK BACK AT CREATING SPACESHIPS - MAYBE JUST DO THIS INSTEAD AND RANDOMIZE SPEED AND POSITION
         let speedVariance =  Phaser.Math.Between(0, 50);
-        let barrier = new Barrier(this, this.barrierSpeed - speedVariance);
-        this.barrierGroup.add(barrier);
+        let platform = new Platform(this, this.barrierSpeed - speedVariance, 'platform');
+        this.barrierGroup.add(platform);
     }
 
     update() {
