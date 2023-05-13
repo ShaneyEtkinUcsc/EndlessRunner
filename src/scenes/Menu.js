@@ -4,6 +4,9 @@ class Menu extends Phaser.Scene {
     }
 
     preload() {
+        this.load.audio('music', './assets/043792206-cinematic-hip-hop-loop.mp3');
+        this.load.audio('sfx_pop', './assets/Balloon_Pop.mp3');
+        this.load.audio('sfx_boing', './assets/Cartoon_Boing.mp3');
     }
 
     create() {
