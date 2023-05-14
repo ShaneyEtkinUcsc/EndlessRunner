@@ -19,7 +19,7 @@ class Play extends Phaser.Scene {
         // set up audio, play bgm
         this.bgm = this.sound.add('music', { 
             mute: false,
-            volume: 1,
+            volume: .5,
             rate: 1,
             loop: true 
         });
@@ -65,7 +65,7 @@ class Play extends Phaser.Scene {
         // wait a few seconds before spawning barriers - nAltice paddle game
         // MAKE SURE TO RANDOMIZE Y POSITION
         this.time.delayedCall(2500, () => { 
-            thisaddPlatform(); 
+            this.addPlatform(); 
         });
         this.time.delayedCall(2500, () => { 
             this.ship02 = new Ball(this, game.config.width + borderUISize*6, borderUISize*4, 'ball', 0, 1).setOrigin(0, 0); 
@@ -82,8 +82,8 @@ class Play extends Phaser.Scene {
         });
 
         //define keys
-        keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
-        keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
+        keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
+        keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
 
