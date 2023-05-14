@@ -7,10 +7,11 @@ class Menu extends Phaser.Scene {
         this.load.audio('music', './assets/043792206-cinematic-hip-hop-loop.mp3');
         this.load.audio('sfx_pop', './assets/Balloon_Pop.mp3');
         this.load.audio('sfx_boing', './assets/Cartoon_Boing.mp3');
+        this.load.image('sunset', './assets/sunset.png');
     }
 
     create() {
-        // find background - this.smth = this.add.tileSprite(0, 0, 640, 480, 'smth').setOrigin(0, 0);
+        this.sunset = this.add.tileSprite(0, 0, 640, 480, 'sunset').setOrigin(0, 0);
 
         //menu text config
         let menuConfig = {
