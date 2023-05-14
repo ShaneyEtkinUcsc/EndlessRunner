@@ -11,8 +11,26 @@ class Menu extends Phaser.Scene {
     }
 
     create() {
+        this.sunset = this.add.tileSprite(0, 0, 640, 480, 'sunset').setOrigin(0, 0);
+
+        // reset parameters
+        this.barrierSpeed = -450;
+        this.barrierSpeedMax = -1000;
+        level = 0;
+        
+        // set up audio, play bgm
+        this.bgm = this.sound.add('music', { 
+            mute: false,
+            volume: 1,
+            rate: 1,
+            loop: true 
+        });
+        this.bgm.play();
+
         //https://www.youtube.com/watch?v=ffemDAdJySU
+        // set up animations for texture atlas
         this.frameNames = this.textures.get('ball').getFrameNames();
+        /* THE BALL WAS GONNA BE THE PLAYER, BUT I CHANGED IT TO THE POINTS YOU GET SO THIS ANIM WONT BE USED :(
         this.anims.create({
             key: 'bounce',
             frames: [
@@ -25,6 +43,7 @@ class Menu extends Phaser.Scene {
             frameRate: 10,
             repeat: -1
         });
+        */
         this.anims.create({
             key: 'pop',
             frames: [
@@ -37,33 +56,6 @@ class Menu extends Phaser.Scene {
             frameRate: 10,
             repeat: -1
         });
-        
-        // reset parameters
-        this.barrierSpeed = -450;
-        this.barrierSpeedMax = -1000;
-        level = 0;
-
-        // set up audio, play bgm
-        this.bgm = this.sound.add('music', { 
-            mute: false,
-            volume: 1,
-            rate: 1,
-            loop: true 
-        });
-        this.bgm.play();
-
-        // set up player paddle (physics sprite) and set properties
-        /* I WANT GRAVITY FOR MY PLAYER OBJECT - MAKE THIS CODE WORK FOR IT
-        paddle = this.physics.add.sprite(32, centerY, 'paddle').setOrigin(0.5);
-        paddle.setCollideWorldBounds(true);
-        paddle.setBounce(0.5);
-        paddle.setImmovable();
-        paddle.setMaxVelocity(0, 600);
-        paddle.setDragY(200);
-        paddle.setDepth(1);             // ensures that paddle z-depth remains above shadow paddles
-        paddle.destroyed = false;       // custom property to track paddle life
-        paddle.setBlendMode('SCREEN');  // set a WebGL blend mode
-        */
 
         /* ALL OF THIS FOR MY PLATFORMS - 
         // FIGURE OUT HOW TO SPAWN PLATFORM TEXTURE AND MAKE THEM BOUNCY RATHER THAN KILLY
@@ -85,35 +77,111 @@ class Menu extends Phaser.Scene {
         });
         */
 
-        // set up cursor keys
-        //cursors = this.input.keyboard.createCursorKeys();
+        //make background greeen
+        this.add.rectangle(0, borderUISize + borderPadding, game.config.width, borderUISize * 2, 0x00FF00).setOrigin(0, 0);
+        //add white borders (on each side)
+        this.add.rectangle(0, 0, game.config.width, borderUISize, 0xFFFFFF).setOrigin(0, 0);
+        this.add.rectangle(0, game.config.height - borderUISize, game.config.width, borderUISize, 0xFFFFFF).setOrigin(0, 0);
+        this.add.rectangle(0, 0, borderUISize, game.config.height, 0xFFFFFF).setOrigin(0, 0);
+        this.add.rectangle(game.config.width - borderUISize, 0, borderUISize, game.config.height, 0xFFFFFF).setOrigin(0, 0);
+
+        //add dart p1
+        this.p1Dart = new Dart(this, game.config.width - borderUISize - borderPadding, game.config.height/2, 'dart').setOrigin(0.5, 0);
+
+        //add ball and platform
+        this.ship01 = new Platform(this, game.config.width, borderUISize*6 + borderPadding*4, 'platform', 0).setOrigin(0, 0);
+        this.ship02 = new Ball(this, game.config.width + borderUISize*6, borderUISize*4, 'ball', 0, 1).setOrigin(0, 0);
+
+        //define keys
+        keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
+        keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
+        keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
+        keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+
+        //initialize score
+        this.p1Score = 0;
+        //display score
+        let scoreConfig = {
+            fontFamily: 'Courier',
+            fontSize: '28px',
+            backgroundColor: '#2491f0',
+            color: '#ffffff',
+            align: 'right',
+            padding: {
+                top: 5,
+                bottom: 5,
+            },
+            fixedWidth: 100
+        }
+        this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*2, this.p1Score, scoreConfig);
+
+        //'GAME OVER' flag
+        this.gameOver = false;
+
+        //play timer
+        scoreConfig.fixedWidth = 0;
+        this.clock = this.time.delayedCall(game.settings.gameTimer, () => {
+            this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0.5);
+            this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to Restart or <- for Menu', scoreConfig).setOrigin(0.5);
+            this.gameOver = true;
+        }, null, this);
+
+        //show UI text for play timer
+        this.playTimer = this.add.text(game.config.width/2, borderUISize + borderPadding*2, this.clock, scoreConfig);
     }
 
     // create new barriers and add them to existing barrier group
     // EDIT TO ADD PLATFORMS USING PLATFORM IMAGE
-    addPlatform() { //LOOK BACK AT CREATING SPACESHIPS - MAYBE JUST DO THIS INSTEAD AND RANDOMIZE SPEED AND POSITION
-        let speedVariance =  Phaser.Math.Between(0, 50);
-        let platform = new Platform(this, this.barrierSpeed - speedVariance, 'platform');
-        this.barrierGroup.add(platform);
-    }
+    //addPlatform() { //LOOK BACK AT CREATING SPACESHIPS - MAYBE JUST DO THIS INSTEAD AND RANDOMIZE SPEED AND POSITION
+        //let speedVariance =  Phaser.Math.Between(0, 50);
+        //let platform = new Platform(this, this.barrierSpeed - speedVariance, 'platform');
+        //this.barrierGroup.add(platform);
+    //}
 
     update() {
-        // make sure paddle is still alive
-        if(!paddle.destroyed) {
-            // check for player input
-            if(cursors.up.isDown) {
-                paddle.body.velocity.y -= paddleVelocity;
-            } else if(cursors.down.isDown) {
-                paddle.body.velocity.y += paddleVelocity;
-            }
-            // check for collisions
-            // IF COLLIDED WITH PLATFORM, BOUNCE UP AND MOVE DOWN STEADILY
-            // PLAY BOUNCE ANIMATION
-            this.physics.world.collide(paddle, this.barrierGroup, this.paddleCollision, null, this);
+        //check key input for restart
+        if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyRIGHT)) {
+            this.scene.restart();
         }
+        if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyLEFT)) {
+            this.scene.start("menuScene");
+        }
+
+        this.sunset.tilePositionX += 4;
+
+        //to get remaining time in clock
+        //https://newdocs.phaser.io/docs/3.55.2/focus/Phaser.Time.TimerEvent-getRemaining
+        this.playTimer.text = Math.floor((this.clock.getRemaining()/1000));
+
+        if(!this.gameOver) {
+            this.p1Dart.update();
+            this.ship01.update();
+            this.ship02.update();
+        }
+
+        //check collisions
+        if(this.checkCollision(this.p1Dart, this.ship02)) { //ball collision
+            this.p1Dart.reset();
+            this.ballPop(this.ball01);   
+        }
+        //if (this.checkCollision(this.p1Dart, this.ship01)) { //platform collision
+            //DESTROY P1DART and gameOver=true
+            //p1Dart.destroy();
+            //gameOver = true;
+            // add tween to fade out audio
+            /*
+            this.tweens.add({
+                targets: this.bgm,
+                volume: 0,
+                ease: 'Linear',
+                duration: 2000,
+            });
+            */
+        //}
     }
 
-    levelBump() {
+    /*
+    levelBump() { //CHANGE TO IF SCORE % 5 == 0 BUMP UP SPEED, SHOULD BUMP EVERY 5 BALLPOPS
         // increment level (ie, score)
         level++;
 
@@ -123,28 +191,38 @@ class Menu extends Phaser.Scene {
             //this.sound.play('clang', { volume: 0.5 });         // play clang to signal speed up
             if(this.barrierSpeed >= this.barrierSpeedMax) {     // increase barrier speed
                 this.barrierSpeed -= 25;
-                this.bgm.rate += 0.01;                          // increase bgm playback rate (ドキドキ)
+                this.bgm.rate += 0.01;                          // increase bgm playback rate
             }
         }
     }
+    */
 
-    paddleCollision() { //CHANGE SO THAT WHEN COLLIDE, BALL BOUNCES - WHEN BALL HITS BOTTOM OF SCREEN, DESTROY AND GAMEOVER
-        paddle.destroyed = true;                    // turn off collision checking
-        this.difficultyTimer.destroy();             // shut down timer
-        this.sound.play('death', { volume: 0.25 }); // play death sound
-        
-        // add tween to fade out audio
-        this.tweens.add({
-            targets: this.bgm,
-            volume: 0,
-            ease: 'Linear',
-            duration: 2000,
+    checkCollision(rocket, ship) {
+        if (rocket.x < ship.x + ship.width &&
+            rocket.x + rocket.width > ship.x &&
+            rocket.y < ship.y + ship.height &&
+            rocket.height + rocket.y > ship. y) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    ballPop(ship) {
+        //temporarily hide ship
+        ship.alpha = 0;
+        //create explosion sprite at ship's position
+        let boom = this.add.sprite(ship.x, ship.y, 'explosion').setOrigin(0, 0);
+        boom.anims.play('explode');             //play explode animation
+        boom.on('animationcomplete', () => {    
+            ship.reset();                         
+            ship.alpha = 1;                     //make ship visible again
+            boom.destroy();                     //remove explosion sprite
         });
-       
-        // kill paddle
-        paddle.destroy();    
+        //score add and repaint
+        this.p1Score += ship.points;
+        this.scoreLeft.text = this.p1Score;      
 
-        // switch states after timer expires
-        this.time.delayedCall(4000, () => { this.scene.start('menuScene'); });
+        this.sound.play("sfx_pop");
     }
 }
