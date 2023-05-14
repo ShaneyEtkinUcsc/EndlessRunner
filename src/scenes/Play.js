@@ -49,28 +49,21 @@ class Play extends Phaser.Scene {
         //add dart p1
         this.p1Dart = new Dart(this, game.config.width + borderUISize + borderPadding, game.config.height/2, 'dart').setOrigin(0.5, 0);
 
+        //add platform and ball
+        // wait a few seconds before spawning barriers - nAltice paddle game
         /*
-        this.platformGroup = this.add.group({
-            runChildUpdate: true
-        });
-
-        this.ballGroup = this.add.group({
-            runChildUpdate: true
+        this.time.delayedCall(2500, () => { 
+            this.addPlatform(); 
         });
         */
 
-        //add platform and ball
-        // wait a few seconds before spawning barriers - nAltice paddle game
-        let coordRand = Phaser.Math.Between(80, 400);
-        
-        //this.time.delayedCall(2500, () => { 
-        //    this.addPlatform(); 
-        //});
+        //https://phaser.discourse.group/t/random-spawning/3318
+        //https://www.html5gamedevs.com/topic/21724-spawning-enemies-at-random-period/
         this.time.delayedCall(2500, () => { 
-            this.ship01 = new Platform(this, game.config.width, coordRand, 'platform', 0).setOrigin(0, 0); 
+            this.ship01 = new Platform(this, game.config.width, Phaser.Math.Between(0, this.game.config.height), 'platform', 0).setOrigin(0, 0); 
         });
         this.time.delayedCall(2500, () => { 
-            this.ship02 = new Ball(this, game.config.width + borderUISize*6, coordRand, 'ball', 0, 1).setOrigin(0, 0); 
+            this.ship02 = new Ball(this, game.config.width + borderUISize*6, Phaser.Math.Between(0, this.game.config.height), 'ball', 0, 1).setOrigin(0, 0); 
         });
 
 
@@ -112,18 +105,25 @@ class Play extends Phaser.Scene {
 
     /*
     addPlatform() {
-        let coordRand = Phaser.Math.Between(80, 400);
-        this.ship01 = new Platform(this, game.config.width, coordRand, 'platform', 0).setOrigin(0, 0);
-        platformExists = true;
     }
     addBall() {
-        let coordRand = Phaser.Math.Between(80, 400);
-        this.ship02 = new Ball(this, game.config.width + borderUISize*6, coordRand, 'ball', 0, 1).setOrigin(0, 0);
-        ballExists = true;
     }
     */
 
     update() {
+        //check collisions
+        if(this.checkCollision(this.p1Dart, this.ship02)) { //ball collision
+            this.ballPop(this.ship02);   
+        }
+        if (this.checkCollision(this.p1Dart, this.ship01)) { //platform collision
+            p1Dart.destroy();
+            gameOver = true;
+        
+            this.sound.play('sfx_death');
+                    
+            this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0.5);
+            this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press --> to Restart or <- for Menu', scoreConfig).setOrigin(0.5);
+        }
         //check key input for restart
         if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyRIGHT)) {
             this.scene.restart();
@@ -138,20 +138,6 @@ class Play extends Phaser.Scene {
             this.p1Dart.update();
             this.ship01.update();
             this.ship02.update();
-        }
-
-        //check collisions
-        if(this.checkCollision(this.p1Dart, this.ship02)) { //ball collision
-            this.ballPop(this.ship02);   
-        }
-        if (this.checkCollision(this.p1Dart, this.ship01)) { //platform collision
-            p1Dart.destroy();
-            gameOver = true;
-
-            this.sound.play('sfx_death');
-            
-            this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0.5);
-            this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to Restart or <- for Menu', scoreConfig).setOrigin(0.5);
         }
     }
 
