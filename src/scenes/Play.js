@@ -54,11 +54,18 @@ class Menu extends Phaser.Scene {
         //add dart p1
         this.p1Dart = new Dart(this, game.config.width - borderUISize - borderPadding, game.config.height/2, 'dart').setOrigin(0.5, 0);
 
+        this.platformGroup = this.add.group({
+            runChildUpdate: true
+        });
+
+        this.ballGroup = this.add.group({
+            runChildUpdate: true
+        });
         //add platform and ball
         // wait a few seconds before spawning barriers - nAltice paddle game
         // MAKE SURE TO RANDOMIZE Y POSITION
         this.time.delayedCall(2500, () => { 
-            this.ship01 = new Platform(this, game.config.width, borderUISize*6 + borderPadding*4, 'platform', 0).setOrigin(0, 0); 
+            thisaddPlatform(); 
         });
         this.time.delayedCall(2500, () => { 
             this.ship02 = new Ball(this, game.config.width + borderUISize*6, borderUISize*4, 'ball', 0, 1).setOrigin(0, 0); 
@@ -99,6 +106,18 @@ class Menu extends Phaser.Scene {
 
         //'GAME OVER' flag
         this.gameOver = false;
+    }
+
+    addPlatform() {
+        let coordRand = Phaser.Math.Between(80, 400);
+        let ship01 = new Platform(this, game.config.width, coordRand, 'platform', 0).setOrigin(0, 0);
+        this.platformGroup.add(ship01); 
+    }
+
+    addBall() {
+        let coordRand = Phaser.Math.Between(80, 400);
+        let ship02 = new Ball(this, game.config.width + borderUISize*6, coordRand, 'ball', 0, 1).setOrigin(0, 0);
+        this.ballGroup.add(ship02); 
     }
 
     update() {
