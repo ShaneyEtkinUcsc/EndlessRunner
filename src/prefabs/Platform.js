@@ -17,9 +17,14 @@ class Platform extends Phaser.GameObjects.Sprite {
 
         this.x -= this.moveSpeed;
 
-        if(this.x < -this.width) {
+        if(this.x <= 0 - this.width) {
             this.destroy();
             platformExists = false;
         }
     }
+
+    //position reset
+    //reset() {
+    //    this.x = game.config.width;
+    //}
 }
