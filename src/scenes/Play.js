@@ -47,7 +47,7 @@ class Play extends Phaser.Scene {
 
 
         //add dart p1
-        this.p1Dart = new Dart(this, game.config.width - borderUISize - borderPadding, game.config.height/2, 'dart').setOrigin(0.5, 0);
+        this.p1Dart = new Dart(this, game.config.width + borderUISize + borderPadding, game.config.height/2, 'dart').setOrigin(0.5, 0);
 
         /*
         this.platformGroup = this.add.group({
