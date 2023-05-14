@@ -14,3 +14,5 @@ let borderPadding = borderUISize / 3;
 
 // define globals
 let level;
+let centerX = game.config.width/2;
+let centerY = game.config.height/2;
