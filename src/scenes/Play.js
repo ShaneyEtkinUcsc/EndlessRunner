@@ -25,13 +25,8 @@ class Play extends Phaser.Scene {
         });
         this.bgm.play();
 
-        //make background greeen
-        this.add.rectangle(0, borderUISize + borderPadding, game.config.width, borderUISize * 2, 0x00FF00).setOrigin(0, 0);
-        //add white borders (on each side)
-        this.add.rectangle(0, 0, game.config.width, borderUISize, 0xFFFFFF).setOrigin(0, 0);
-        this.add.rectangle(0, game.config.height - borderUISize, game.config.width, borderUISize, 0xFFFFFF).setOrigin(0, 0);
-        this.add.rectangle(0, 0, borderUISize, game.config.height, 0xFFFFFF).setOrigin(0, 0);
-        this.add.rectangle(game.config.width - borderUISize, 0, borderUISize, game.config.height, 0xFFFFFF).setOrigin(0, 0);
+        //make background white
+        this.add.rectangle(0, borderUISize + borderPadding, game.config.width, borderUISize * 2, 0xFFFFFF).setOrigin(0, 0);
 
         //https://www.youtube.com/watch?v=ffemDAdJySU
         // set up animations for texture atlas
@@ -149,8 +144,7 @@ class Play extends Phaser.Scene {
 
         //check collisions
         if(this.checkCollision(this.p1Dart, this.ship02)) { //ball collision
-            this.p1Dart.reset();
-            this.ballPop(this.ball01);   
+            this.ballPop(this.ship02);   
         }
         if (this.checkCollision(this.p1Dart, this.ship01)) { //platform collision
             p1Dart.destroy();
@@ -181,11 +175,11 @@ class Play extends Phaser.Scene {
         }
     }
 
-    checkCollision(rocket, ship) {
-        if (rocket.x < ship.x + ship.width &&
-            rocket.x + rocket.width > ship.x &&
-            rocket.y < ship.y + ship.height &&
-            rocket.height + rocket.y > ship. y) {
+    checkCollision(dart, ship) {
+        if (dart.x < ship.x + ship.width &&
+            dart.x + dart.width > ship.x &&
+            dart.y < ship.y + ship.height &&
+            dart.height + dart.y > ship. y) {
             return true;
         } else {
             return false;
