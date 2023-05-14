@@ -66,9 +66,16 @@ class Play extends Phaser.Scene {
 
         //add platform and ball
         // wait a few seconds before spawning barriers - nAltice paddle game
-        this.time.delayedCall(2500, () => { 
-            this.addPlatform(); 
-        });
+        if(platformExists = false){
+            let coordRand = Phaser.Math.Between(80, 400);
+            this.time.delayedCall(2500, () => { 
+                this.ship01 = new Platform(this, game.config.width, coordRand, 'platform', 0).setOrigin(0, 0);
+            });
+            platformExists = true;
+        }
+        //this.time.delayedCall(2500, () => { 
+        //    this.addPlatform(); 
+        //});
         this.time.delayedCall(2500, () => { 
             this.ship02 = new Ball(this, game.config.width + borderUISize*6, borderUISize*4, 'ball', 0, 1).setOrigin(0, 0); 
         });
@@ -110,17 +117,18 @@ class Play extends Phaser.Scene {
         this.gameOver = false;
     }
 
+    /*
     addPlatform() {
         let coordRand = Phaser.Math.Between(80, 400);
         this.ship01 = new Platform(this, game.config.width, coordRand, 'platform', 0).setOrigin(0, 0);
         platformExists = true;
     }
-
     addBall() {
         let coordRand = Phaser.Math.Between(80, 400);
         this.ship02 = new Ball(this, game.config.width + borderUISize*6, coordRand, 'ball', 0, 1).setOrigin(0, 0);
         ballExists = true;
     }
+    */
 
     update() {
         //check key input for restart
