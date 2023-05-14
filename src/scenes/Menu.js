@@ -28,13 +28,15 @@ class Menu extends Phaser.Scene {
         //show menu text
         menuConfig.fontSize = '40px';
         menuConfig.color = '#5424f0';
-        this.add.text(game.config.width/2, borderUISize + borderPadding*2, 'Bounce!', menuConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, borderUISize + borderPadding*2, 'Dart Throw', menuConfig).setOrigin(0.5);
         menuConfig.fontSize = '28px';
         menuConfig.color = '#2a00b3';
         this.add.text(game.config.width/2, game.config.height/2, 'Use arrows to move, jump on the platforms and avoid obstacles', menuConfig).setOrigin(0.5);
-        this.add.text(game.config.width/2, game.config.height/2 + borderUISize + borderPadding, 'Press <- for Novice or -> for Expert', menuConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2 + borderUISize + borderPadding, 'Press -> to start', menuConfig).setOrigin(0.5);
 
         //define keys
+        keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
+        keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
     }
@@ -43,23 +45,8 @@ class Menu extends Phaser.Scene {
         if (Phaser.Input.Keyboard.JustDown(keyLEFT)) {
             //easy mode
             game.settings = {
-                /* make it do stuff!
-                spaceshipSpeed: 3,
-                smallshipSpeed: 4,
-                gameTimer: 60000
-                */
-            }
-            //this.sound.play('sfx_select');
-            this.scene.start('playScene');
-        }
-        if (Phaser.Input.Keyboard.JustDown(keyRIGHT)) {
-            //hard mode
-            game.settings = {
-                /*
-                spaceshipSpeed: 4,
-                smallshipSpeed:5,
-                gameTimer: 45000
-                */
+                platformSpeed: 2,
+                ballSpeed: 3
             }
             //this.sound.play('sfx_select');
             this.scene.start('playScene');

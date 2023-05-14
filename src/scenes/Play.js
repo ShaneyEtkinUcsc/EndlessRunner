@@ -14,8 +14,6 @@ class Menu extends Phaser.Scene {
         this.sunset = this.add.tileSprite(0, 0, 640, 480, 'sunset').setOrigin(0, 0);
 
         // reset parameters
-        this.barrierSpeed = -450;
-        this.barrierSpeedMax = -1000;
         level = 0;
         
         // set up audio, play bgm
@@ -26,6 +24,14 @@ class Menu extends Phaser.Scene {
             loop: true 
         });
         this.bgm.play();
+
+        //make background greeen
+        this.add.rectangle(0, borderUISize + borderPadding, game.config.width, borderUISize * 2, 0x00FF00).setOrigin(0, 0);
+        //add white borders (on each side)
+        this.add.rectangle(0, 0, game.config.width, borderUISize, 0xFFFFFF).setOrigin(0, 0);
+        this.add.rectangle(0, game.config.height - borderUISize, game.config.width, borderUISize, 0xFFFFFF).setOrigin(0, 0);
+        this.add.rectangle(0, 0, borderUISize, game.config.height, 0xFFFFFF).setOrigin(0, 0);
+        this.add.rectangle(game.config.width - borderUISize, 0, borderUISize, game.config.height, 0xFFFFFF).setOrigin(0, 0);
 
         //https://www.youtube.com/watch?v=ffemDAdJySU
         // set up animations for texture atlas
@@ -44,40 +50,29 @@ class Menu extends Phaser.Scene {
             repeat: -1
         });
 
-        /* ALL OF THIS FOR MY PLATFORMS - 
-        // FIGURE OUT HOW TO SPAWN PLATFORM TEXTURE AND MAKE THEM BOUNCY RATHER THAN KILLY
-        // set up barrier group
-        this.barrierGroup = this.add.group({
-            runChildUpdate: true    // make sure update runs on group children
-        });
-        // wait a few seconds before spawning barriers
+
+        //add dart p1
+        this.p1Dart = new Dart(this, game.config.width - borderUISize - borderPadding, game.config.height/2, 'dart').setOrigin(0.5, 0);
+
+        //add platform and ball
+        // wait a few seconds before spawning barriers - nAltice paddle game
+        // MAKE SURE TO RANDOMIZE Y POSITION
         this.time.delayedCall(2500, () => { 
-            this.addPlatform(); 
+            this.ship01 = new Platform(this, game.config.width, borderUISize*6 + borderPadding*4, 'platform', 0).setOrigin(0, 0); 
+        });
+        this.time.delayedCall(2500, () => { 
+            this.ship02 = new Ball(this, game.config.width + borderUISize*6, borderUISize*4, 'ball', 0, 1).setOrigin(0, 0); 
         });
 
+
         // set up difficulty timer (triggers callback every second)
+        //nAltice paddle runner
         this.difficultyTimer = this.time.addEvent({
             delay: 1000,
             callback: this.levelBump,
             callbackScope: this,
             loop: true
         });
-        */
-
-        //make background greeen
-        this.add.rectangle(0, borderUISize + borderPadding, game.config.width, borderUISize * 2, 0x00FF00).setOrigin(0, 0);
-        //add white borders (on each side)
-        this.add.rectangle(0, 0, game.config.width, borderUISize, 0xFFFFFF).setOrigin(0, 0);
-        this.add.rectangle(0, game.config.height - borderUISize, game.config.width, borderUISize, 0xFFFFFF).setOrigin(0, 0);
-        this.add.rectangle(0, 0, borderUISize, game.config.height, 0xFFFFFF).setOrigin(0, 0);
-        this.add.rectangle(game.config.width - borderUISize, 0, borderUISize, game.config.height, 0xFFFFFF).setOrigin(0, 0);
-
-        //add dart p1
-        this.p1Dart = new Dart(this, game.config.width - borderUISize - borderPadding, game.config.height/2, 'dart').setOrigin(0.5, 0);
-
-        //add ball and platform
-        this.ship01 = new Platform(this, game.config.width, borderUISize*6 + borderPadding*4, 'platform', 0).setOrigin(0, 0);
-        this.ship02 = new Ball(this, game.config.width + borderUISize*6, borderUISize*4, 'ball', 0, 1).setOrigin(0, 0);
 
         //define keys
         keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
@@ -106,14 +101,6 @@ class Menu extends Phaser.Scene {
         this.gameOver = false;
     }
 
-    // create new barriers and add them to existing barrier group
-    // EDIT TO ADD PLATFORMS USING PLATFORM IMAGE
-    //addPlatform() { //LOOK BACK AT CREATING SPACESHIPS - MAYBE JUST DO THIS INSTEAD AND RANDOMIZE SPEED AND POSITION
-        //let speedVariance =  Phaser.Math.Between(0, 50);
-        //let platform = new Platform(this, this.barrierSpeed - speedVariance, 'platform');
-        //this.barrierGroup.add(platform);
-    //}
-
     update() {
         //check key input for restart
         if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyRIGHT)) {
@@ -136,21 +123,21 @@ class Menu extends Phaser.Scene {
             this.p1Dart.reset();
             this.ballPop(this.ball01);   
         }
-        //if (this.checkCollision(this.p1Dart, this.ship01)) { //platform collision
-            //p1Dart.destroy();
-            //gameOver = true;
+        if (this.checkCollision(this.p1Dart, this.ship01)) { //platform collision
+            p1Dart.destroy();
+            gameOver = true;
             // add tween to fade out audio
-            /*
+            
             this.tweens.add({
                 targets: this.bgm,
                 volume: 0,
                 ease: 'Linear',
                 duration: 2000,
             });
-            */
-            //this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0.5);
-            //this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to Restart or <- for Menu', scoreConfig).setOrigin(0.5);
-        //}
+            
+            this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0.5);
+            this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to Restart or <- for Menu', scoreConfig).setOrigin(0.5);
+        }
     }
 
     levelBump() {
@@ -159,8 +146,9 @@ class Menu extends Phaser.Scene {
 
         // bump speed every 5 levels
         if(level % 5 == 0) {
-            //spaceshipSpeed++; (increment equivalent of spaceshipSpeed)
-            this.bgm.rate += 0.01;                          // increase bgm playback rate
+            platformSpeed++;
+            ballSpeed++;
+            this.bgm.rate += 0.01; // increase bgm playback rate
         }
     }
 
@@ -176,15 +164,9 @@ class Menu extends Phaser.Scene {
     }
 
     ballPop(ship) {
-        //temporarily hide ship
-        ship.alpha = 0;
-        //create explosion sprite at ship's position
-        let boom = this.add.sprite(ship.x, ship.y, 'explosion').setOrigin(0, 0);
-        boom.anims.play('explode');             //play explode animation
-        boom.on('animationcomplete', () => {    
-            ship.reset();                         
-            ship.alpha = 1;                     //make ship visible again
-            boom.destroy();                     //remove explosion sprite
+        this.ship02.anims.play('pop');             //play explode animation
+        this.ship02.on('animationcomplete', () => {                      
+            this.ship02.destroy();
         });
         //score add and repaint
         this.p1Score += ship.points;
