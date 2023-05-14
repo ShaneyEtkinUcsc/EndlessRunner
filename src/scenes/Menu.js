@@ -16,7 +16,7 @@ class Menu extends Phaser.Scene {
         let menuConfig = {
             fontFamily: 'Courier',
             fontSize: '28px',
-            color: '#843605',
+            color: '#fcba03',
             align: 'right',
             padding: {
                 top: 5,
@@ -27,10 +27,8 @@ class Menu extends Phaser.Scene {
 
         //show menu text
         menuConfig.fontSize = '40px';
-        menuConfig.color = '#5424f0';
         this.add.text(game.config.width/2, borderUISize + borderPadding*2, 'Dart Throw', menuConfig).setOrigin(0.5);
         menuConfig.fontSize = '28px';
-        menuConfig.color = '#2a00b3';
         this.add.text(game.config.width/2, game.config.height/2, 'Use arrows to move, jump on the platforms and avoid obstacles', menuConfig).setOrigin(0.5);
         this.add.text(game.config.width/2, game.config.height/2 + borderUISize + borderPadding, 'Press -> to start', menuConfig).setOrigin(0.5);
 
@@ -42,7 +40,7 @@ class Menu extends Phaser.Scene {
     }
 
     update() {
-        if (Phaser.Input.Keyboard.JustDown(keyLEFT)) {
+        if (Phaser.Input.Keyboard.JustDown(keyRIGHT)) {
             //easy mode
             game.settings = {
                 platformSpeed: 2,
