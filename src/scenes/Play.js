@@ -30,20 +30,7 @@ class Menu extends Phaser.Scene {
         //https://www.youtube.com/watch?v=ffemDAdJySU
         // set up animations for texture atlas
         this.frameNames = this.textures.get('ball').getFrameNames();
-        /* THE BALL WAS GONNA BE THE PLAYER, BUT I CHANGED IT TO THE POINTS YOU GET SO THIS ANIM WONT BE USED :(
-        this.anims.create({
-            key: 'bounce',
-            frames: [
-                {key: 'ball', frame: "ballbounce1.png" },
-                {key: 'ball', frame: "ballbounce2.png" },
-                {key: 'ball', frame: "ballbounce3.png" },
-                {key: 'ball', frame: "ballbounce4.png" },
-                {key: 'ball', frame: "ballbounce5.png" }
-            ], 
-            frameRate: 10,
-            repeat: -1
-        });
-        */
+        // THE BALL WAS GONNA BE THE PLAYER, BUT I CHANGED IT TO THE POINTS YOU GET SO BOUNCE ANIM WONT BE USED :(
         this.anims.create({
             key: 'pop',
             frames: [
@@ -117,17 +104,6 @@ class Menu extends Phaser.Scene {
 
         //'GAME OVER' flag
         this.gameOver = false;
-
-        //play timer
-        scoreConfig.fixedWidth = 0;
-        this.clock = this.time.delayedCall(game.settings.gameTimer, () => {
-            this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0.5);
-            this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to Restart or <- for Menu', scoreConfig).setOrigin(0.5);
-            this.gameOver = true;
-        }, null, this);
-
-        //show UI text for play timer
-        this.playTimer = this.add.text(game.config.width/2, borderUISize + borderPadding*2, this.clock, scoreConfig);
     }
 
     // create new barriers and add them to existing barrier group
@@ -149,10 +125,6 @@ class Menu extends Phaser.Scene {
 
         this.sunset.tilePositionX += 4;
 
-        //to get remaining time in clock
-        //https://newdocs.phaser.io/docs/3.55.2/focus/Phaser.Time.TimerEvent-getRemaining
-        this.playTimer.text = Math.floor((this.clock.getRemaining()/1000));
-
         if(!this.gameOver) {
             this.p1Dart.update();
             this.ship01.update();
@@ -165,7 +137,6 @@ class Menu extends Phaser.Scene {
             this.ballPop(this.ball01);   
         }
         //if (this.checkCollision(this.p1Dart, this.ship01)) { //platform collision
-            //DESTROY P1DART and gameOver=true
             //p1Dart.destroy();
             //gameOver = true;
             // add tween to fade out audio
@@ -177,25 +148,21 @@ class Menu extends Phaser.Scene {
                 duration: 2000,
             });
             */
+            //this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0.5);
+            //this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to Restart or <- for Menu', scoreConfig).setOrigin(0.5);
         //}
     }
 
-    /*
-    levelBump() { //CHANGE TO IF SCORE % 5 == 0 BUMP UP SPEED, SHOULD BUMP EVERY 5 BALLPOPS
-        // increment level (ie, score)
+    levelBump() {
+        // increment level
         level++;
 
-        // bump speed every 5 levels (until max is hit)
+        // bump speed every 5 levels
         if(level % 5 == 0) {
-            //console.log(`level: ${level}, speed: ${this.barrierSpeed}`);
-            //this.sound.play('clang', { volume: 0.5 });         // play clang to signal speed up
-            if(this.barrierSpeed >= this.barrierSpeedMax) {     // increase barrier speed
-                this.barrierSpeed -= 25;
-                this.bgm.rate += 0.01;                          // increase bgm playback rate
-            }
+            //spaceshipSpeed++; (increment equivalent of spaceshipSpeed)
+            this.bgm.rate += 0.01;                          // increase bgm playback rate
         }
     }
-    */
 
     checkCollision(rocket, ship) {
         if (rocket.x < ship.x + ship.width &&
