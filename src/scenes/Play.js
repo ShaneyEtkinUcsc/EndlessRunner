@@ -62,9 +62,7 @@ class Play extends Phaser.Scene {
         //add platform and ball
         // wait a few seconds before spawning barriers - nAltice paddle game
         let coordRand = Phaser.Math.Between(80, 400);
-        this.time.delayedCall(2500, () => { 
-            this.ship01 = new Platform(this, game.config.width, coordRand, 'platform', 0).setOrigin(0, 0);
-        });
+        this.ship01 = new Platform(this, game.config.width, coordRand, 'platform', 0).setOrigin(0, 0);
         //this.time.delayedCall(2500, () => { 
         //    this.addPlatform(); 
         //});
