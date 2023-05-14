@@ -7,6 +7,8 @@ class Menu extends Phaser.Scene {
         this.load.audio('music', './assets/043792206-cinematic-hip-hop-loop.mp3');
         this.load.audio('sfx_pop', './assets/Balloon_Pop.mp3');
         this.load.audio('sfx_boing', './assets/Cartoon_Boing.mp3');
+        this.load.audio('sfx_bloop', './assets/BloopSound.mp3');
+        this.load.audio('sfx_death', './assets/VideoGameDeath.mp3');
         this.load.image('sunset', './assets/sunset.png');
     }
 
@@ -48,7 +50,7 @@ class Menu extends Phaser.Scene {
                 platformSpeed: 2,
                 ballSpeed: 3
             }
-            //this.sound.play('sfx_select');
+            this.sound.play('sfx_bloop');
             this.scene.start('playScene');
         }
     }

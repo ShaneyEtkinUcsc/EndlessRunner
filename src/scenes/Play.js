@@ -62,10 +62,13 @@ class Play extends Phaser.Scene {
         //add platform and ball
         // wait a few seconds before spawning barriers - nAltice paddle game
         let coordRand = Phaser.Math.Between(80, 400);
-        this.ship01 = new Platform(this, game.config.width, coordRand, 'platform', 0).setOrigin(0, 0);
+        
         //this.time.delayedCall(2500, () => { 
         //    this.addPlatform(); 
         //});
+        this.time.delayedCall(2500, () => { 
+            this.ship01 = new Platform(this, game.config.width, coordRand, 'platform', 0).setOrigin(0, 0); 
+        });
         this.time.delayedCall(2500, () => { 
             this.ship02 = new Ball(this, game.config.width + borderUISize*6, coordRand, 'ball', 0, 1).setOrigin(0, 0); 
         });
@@ -141,23 +144,15 @@ class Play extends Phaser.Scene {
         if(this.checkCollision(this.p1Dart, this.ship02)) { //ball collision
             this.ballPop(this.ship02);   
         }
-        /*
         if (this.checkCollision(this.p1Dart, this.ship01)) { //platform collision
             p1Dart.destroy();
             gameOver = true;
-            // add tween to fade out audio
-            
-            this.tweens.add({
-                targets: this.bgm,
-                volume: 0,
-                ease: 'Linear',
-                duration: 2000,
-            });
+
+            this.sound.play('sfx_death');
             
             this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0.5);
             this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to Restart or <- for Menu', scoreConfig).setOrigin(0.5);
         }
-        */
     }
 
     levelBump() {
