@@ -141,6 +141,7 @@ class Play extends Phaser.Scene {
         if(this.checkCollision(this.p1Dart, this.ship02)) { //ball collision
             this.ballPop(this.ship02);   
         }
+        /*
         if (this.checkCollision(this.p1Dart, this.ship01)) { //platform collision
             p1Dart.destroy();
             gameOver = true;
@@ -156,6 +157,7 @@ class Play extends Phaser.Scene {
             this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0.5);
             this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to Restart or <- for Menu', scoreConfig).setOrigin(0.5);
         }
+        */
     }
 
     levelBump() {
