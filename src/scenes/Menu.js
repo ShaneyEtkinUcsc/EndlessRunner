@@ -29,8 +29,9 @@ class Menu extends Phaser.Scene {
         //show menu text
         menuConfig.fontSize = '40px';
         this.add.text(game.config.width/2, borderUISize + borderPadding*2, 'Dart Throw', menuConfig).setOrigin(0.5);
-        menuConfig.fontSize = '20px';
+        menuConfig.fontSize = '16px';
         this.add.text(game.config.width/2, game.config.height/2, 'Use arrows to move, jump on the platforms and avoid obstacles', menuConfig).setOrigin(0.5);
+        menuConfig.fontSize = '20px';
         this.add.text(game.config.width/2, game.config.height/2 + borderUISize + borderPadding, 'Press -> to start', menuConfig).setOrigin(0.5);
 
         //define keys
