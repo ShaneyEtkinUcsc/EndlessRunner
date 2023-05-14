@@ -65,7 +65,6 @@ class Play extends Phaser.Scene {
         this.time.delayedCall(2500, () => { 
             this.ship01 = new Platform(this, game.config.width, coordRand, 'platform', 0).setOrigin(0, 0);
         });
-        platformExists = true;
         //this.time.delayedCall(2500, () => { 
         //    this.addPlatform(); 
         //});
