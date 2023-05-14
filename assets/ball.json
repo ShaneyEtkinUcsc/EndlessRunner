@@ -1,1 +1,272 @@
-{"frames":[{"filename":"ballpop7","frame":{"x":0,"y":0,"w":64,"h":64},"rotated":false,"trimmed":false,"spriteSourceSize":{"x":0,"y":0,"w":64,"h":64},"sourceSize":{"w":64,"h":64}},{"filename":"ballbounce1","frame":{"x":0,"y":65,"w":64,"h":64},"rotated":false,"trimmed":false,"spriteSourceSize":{"x":0,"y":0,"w":64,"h":64},"sourceSize":{"w":64,"h":64}},{"filename":"ballbounce2","frame":{"x":65,"y":0,"w":64,"h":64},"rotated":false,"trimmed":false,"spriteSourceSize":{"x":0,"y":0,"w":64,"h":64},"sourceSize":{"w":64,"h":64}},{"filename":"ballbounce3","frame":{"x":65,"y":65,"w":64,"h":64},"rotated":false,"trimmed":false,"spriteSourceSize":{"x":0,"y":0,"w":64,"h":64},"sourceSize":{"w":64,"h":64}},{"filename":"ballbounce4","frame":{"x":0,"y":130,"w":64,"h":64},"rotated":false,"trimmed":false,"spriteSourceSize":{"x":0,"y":0,"w":64,"h":64},"sourceSize":{"w":64,"h":64}},{"filename":"ballbounce5","frame":{"x":65,"y":130,"w":64,"h":64},"rotated":false,"trimmed":false,"spriteSourceSize":{"x":0,"y":0,"w":64,"h":64},"sourceSize":{"w":64,"h":64}},{"filename":"ballpop1","frame":{"x":130,"y":0,"w":64,"h":64},"rotated":false,"trimmed":false,"spriteSourceSize":{"x":0,"y":0,"w":64,"h":64},"sourceSize":{"w":64,"h":64}},{"filename":"ballpop2","frame":{"x":130,"y":65,"w":64,"h":64},"rotated":false,"trimmed":false,"spriteSourceSize":{"x":0,"y":0,"w":64,"h":64},"sourceSize":{"w":64,"h":64}},{"filename":"ballpop3","frame":{"x":130,"y":130,"w":64,"h":64},"rotated":false,"trimmed":false,"spriteSourceSize":{"x":0,"y":0,"w":64,"h":64},"sourceSize":{"w":64,"h":64}},{"filename":"ballpop4","frame":{"x":0,"y":195,"w":64,"h":64},"rotated":false,"trimmed":false,"spriteSourceSize":{"x":0,"y":0,"w":64,"h":64},"sourceSize":{"w":64,"h":64}},{"filename":"ballpop5","frame":{"x":65,"y":195,"w":64,"h":64},"rotated":false,"trimmed":false,"spriteSourceSize":{"x":0,"y":0,"w":64,"h":64},"sourceSize":{"w":64,"h":64}},{"filename":"ballpop6","frame":{"x":130,"y":195,"w":64,"h":64},"rotated":false,"trimmed":false,"spriteSourceSize":{"x":0,"y":0,"w":64,"h":64},"sourceSize":{"w":64,"h":64}}],"meta":{"app":"https://www.leshylabs.com/apps/sstool/","version":"Leshy SpriteSheet Tool v0.8.4","image":"ball.png","size":{"w":194,"h":259},"scale":1}}
+{
+	"textures": [
+		{
+			"image": "ball.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 233,
+				"h": 122
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "ballbounce1.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 64
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 64,
+						"h": 64
+					}
+				},
+				{
+					"filename": "ballbounce5.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 64
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 64,
+						"h": 64
+					}
+				},
+				{
+					"filename": "ballpop1.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 64
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 64,
+						"h": 64
+					}
+				},
+				{
+					"filename": "ballpop2.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 4,
+						"w": 51,
+						"h": 54
+					},
+					"frame": {
+						"x": 1,
+						"y": 67,
+						"w": 51,
+						"h": 54
+					}
+				},
+				{
+					"filename": "ballpop4.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 5,
+						"w": 52,
+						"h": 52
+					},
+					"frame": {
+						"x": 54,
+						"y": 67,
+						"w": 52,
+						"h": 52
+					}
+				},
+				{
+					"filename": "ballbounce4.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 14,
+						"y": 0,
+						"w": 37,
+						"h": 64
+					},
+					"frame": {
+						"x": 67,
+						"y": 1,
+						"w": 37,
+						"h": 64
+					}
+				},
+				{
+					"filename": "ballpop6.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 1,
+						"w": 64,
+						"h": 60
+					},
+					"frame": {
+						"x": 106,
+						"y": 1,
+						"w": 64,
+						"h": 60
+					}
+				},
+				{
+					"filename": "ballpop5.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 5,
+						"w": 57,
+						"h": 57
+					},
+					"frame": {
+						"x": 108,
+						"y": 63,
+						"w": 57,
+						"h": 57
+					}
+				},
+				{
+					"filename": "ballbounce2.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 26,
+						"w": 64,
+						"h": 38
+					},
+					"frame": {
+						"x": 167,
+						"y": 63,
+						"w": 64,
+						"h": 38
+					}
+				},
+				{
+					"filename": "ballpop3.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 1,
+						"w": 55,
+						"h": 60
+					},
+					"frame": {
+						"x": 172,
+						"y": 1,
+						"w": 55,
+						"h": 60
+					}
+				},
+				{
+					"filename": "ballbounce3.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 47,
+						"w": 64,
+						"h": 17
+					},
+					"frame": {
+						"x": 167,
+						"y": 103,
+						"w": 64,
+						"h": 17
+					}
+				},
+				{
+					"filename": "ballpop7.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 3,
+						"h": 3
+					},
+					"frame": {
+						"x": 229,
+						"y": 1,
+						"w": 3,
+						"h": 3
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:96fb0a2e3a4fbfd91ba3133796803fd4:d8996e3ca613c2f58bb5225e2b179578:50a67b72e1915f3e08c6f05b684244d0$"
+	}
+}
