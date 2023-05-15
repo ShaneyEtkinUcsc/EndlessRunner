@@ -15,11 +15,12 @@ class Play extends Phaser.Scene {
 
         // reset parameters
         level = 0;
+        objectSpeed = -450;
         
         // set up audio, play bgm
         this.bgm = this.sound.add('music', { 
             mute: false,
-            volume: .5,
+            volume: 0.25,
             rate: 1,
             loop: true 
         });
@@ -82,8 +83,6 @@ class Play extends Phaser.Scene {
         });
 
         //define keys
-        keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
-        keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
 
@@ -93,8 +92,7 @@ class Play extends Phaser.Scene {
         let scoreConfig = {
             fontFamily: 'Courier',
             fontSize: '28px',
-            backgroundColor: '#2491f0',
-            color: '#ffffff',
+            color: '#000',
             align: 'right',
             padding: {
                 top: 5,
@@ -104,13 +102,12 @@ class Play extends Phaser.Scene {
         }
         this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*2, this.p1Score, scoreConfig);
 
-        //'GAME OVER' flag
-        this.gameOver = false;
+        cursors = this.input.keyboard.createCursorKeys();
     }
 
     addPlatform() {
-        let randSpeed = Phaser.Math.Between(0, 60);
-        let platform = new Platform(this, this.platformSpeed - randSpeed);
+        let randSpeed = Phaser.Math.Between(0, 40);
+        let platform = new Platform(this, this.objectSpeed - randSpeed);
         this.platformGroup.add(platform);
     }
     //addBall() {
@@ -118,23 +115,22 @@ class Play extends Phaser.Scene {
 
     update() {
         //check collisions
-        if(this.checkCollision(this.p1Dart, this.ship02)) { //ball collision
-            this.ballPop(this.ship02);   
+        if(!p1Dart.destroyed) {
+            // check for player input
+            if(cursors.up.isDown) {
+                p1Dart.body.velocity.y -= paddleVelocity;
+            } else if(cursors.down.isDown) {
+                p1Dart.body.velocity.y += paddleVelocity;
+            }
+            // check for collisions
+            this.physics.world.collide(p1Dart, this.platformGroup, this.platformCollision, null, this);
         }
-        if (this.checkCollision(this.p1Dart, this.ship01)) { //platform collision
-            p1Dart.destroy();
-            gameOver = true;
-        
-            this.sound.play('sfx_death');
-                    
-            this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0.5);
-            this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press --> to Restart or <- for Menu', scoreConfig).setOrigin(0.5);
-        }
+
         //check key input for restart
-        if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyRIGHT)) {
+        if (p1Dart.destroyed && Phaser.Input.Keyboard.JustDown(keyRIGHT)) {
             this.scene.restart();
         }
-        if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyLEFT)) {
+        if (p1Dart.destroyed && Phaser.Input.Keyboard.JustDown(keyLEFT)) {
             this.scene.start("menuScene");
         }
 
@@ -153,20 +149,8 @@ class Play extends Phaser.Scene {
 
         // bump speed every 5 levels
         if(level % 5 == 0) {
-            platformSpeed++;
-            ballSpeed++;
+            this.objectSpeed -= 20;
             this.bgm.rate += 0.01; // increase bgm playback rate
-        }
-    }
-
-    checkCollision(dart, ship) {
-        if (dart.x < ship.x + ship.width &&
-            dart.x + dart.width > ship.x &&
-            dart.y < ship.y + ship.height &&
-            dart.height + dart.y > ship. y) {
-            return true;
-        } else {
-            return false;
         }
     }
 
@@ -180,5 +164,24 @@ class Play extends Phaser.Scene {
         this.scoreLeft.text = this.p1Score;      
 
         this.sound.play("sfx_pop");
+    }
+
+    platformCollision() {
+        p1Dart.destroyed = true;                   // turn off collision checking
+        this.difficultyTimer.destroy();             // shut down timer
+        this.sound.play('sfx_death');
+        
+        // add tween to fade out audio
+        this.tweens.add({
+            targets: this.bgm,
+            volume: 0,
+            ease: 'Linear',
+            duration: 2000,
+        });
+       
+        p1Dart.destroy();
+        
+        this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press -> to Restart or <- for Menu', scoreConfig).setOrigin(0.5);
     }
 }

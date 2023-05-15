@@ -47,11 +47,6 @@ class Menu extends Phaser.Scene {
         this.sunset.tilePositionX += 4;
         
         if (Phaser.Input.Keyboard.JustDown(keyRIGHT)) {
-            //easy mode
-            game.settings = {
-                platformSpeed: 2,
-                ballSpeed: 3
-            }
             this.sound.play('sfx_bloop');
             this.scene.start('playScene');
         }
