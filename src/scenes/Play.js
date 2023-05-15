@@ -15,7 +15,7 @@ class Play extends Phaser.Scene {
 
         // reset parameters
         level = 0;
-        this.objectSpeed = -450;
+        this.objectSpeed = -40;
         
         // set up audio, play bgm
         this.bgm = this.sound.add('music', { 
@@ -102,12 +102,12 @@ class Play extends Phaser.Scene {
     }
 
     addPlatform() {
-        let randSpeed = Phaser.Math.Between(0, 40);
+        let randSpeed = Phaser.Math.Between(0, 5);
         let platform = new Platform(this, this.objectSpeed - randSpeed);
         this.platformGroup.add(platform);
     }
     addBall() {
-        let randSpeed = Phaser.Math.Between(0, 40);
+        let randSpeed = Phaser.Math.Between(0, 5);
         let ball = new Ball(this, this.objectSpeed - randSpeed);
         this.ballGroup.add(ball);
     }
@@ -143,7 +143,7 @@ class Play extends Phaser.Scene {
 
         // bump speed every 5 levels
         if(level % 5 == 0) {
-            this.objectSpeed -= 20;
+            this.objectSpeed -= 5;
             this.bgm.rate += 0.01; // increase bgm playback rate
         }
     }
