@@ -1,8 +1,7 @@
 //platform prefab
 class Platform extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, velocity) {
-        //super(scene, game.config.width, Phaser.Math.Between(0, this.game.config.height), 'platform'); 
-        super(scene, game.config.width + 16, Phaser.Math.Between(64, game.config.height - 64), 'platform'); 
+        super(scene, game.config.width, Phaser.Math.Between(0, this.game.config.height), 'platform'); 
         
         this.parentScene = scene;  
 
