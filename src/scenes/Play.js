@@ -46,11 +46,15 @@ class Play extends Phaser.Scene {
         });
 
 
-        //add dart p1
-        this.p1Dart = new Dart(this, game.config.width + borderUISize + borderPadding, game.config.height/2, 'dart').setOrigin(0.5, 0);
+        //add dart p1 and set up physics
+        p1Dart = this.physics.add.sprite(32, centerY, 'dart').setOrigin(0.5);
+        p1Dart.setCollideWorldBounds(true);
+        p1Dart.setBounce(0.5);
+        p1Dart.setImmovable();
+        p1Dart.setMaxVelocity(0, 600);
 
         //add platform and ball
-        // wait a few seconds before spawning barriers - nAltice paddle game
+        // wait a few seconds before spawning - nAltice paddle game
         /*
         this.time.delayedCall(2500, () => { 
             this.addPlatform(); 

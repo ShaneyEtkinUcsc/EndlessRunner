@@ -1,4 +1,4 @@
-class Dart extends Phaser.GameObjects.Sprite {
+/*class Dart extends Phaser.GameObjects.Sprite {
     constructor(scene, x, y, texture, frame) {
         super(scene, x, y, texture, frame);
 
@@ -20,3 +20,4 @@ class Dart extends Phaser.GameObjects.Sprite {
         //}
     }
 }
+*/
