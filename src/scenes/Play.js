@@ -54,7 +54,7 @@ class Play extends Phaser.Scene {
         p1Dart.setImmovable();
         p1Dart.setMaxVelocity(0, 600);
 
-
+        // add platform and ball
         this.platformGroup = this.add.group({
             runChildUpdate: true
         });
@@ -65,13 +65,12 @@ class Play extends Phaser.Scene {
         this.time.delayedCall(2500, () => { 
             this.addPlatform();
         });
+        this.time.delayedCall(2500, () => { 
+            this.addBall();
+        });
 
         //https://phaser.discourse.group/t/random-spawning/3318
         //https://www.html5gamedevs.com/topic/21724-spawning-enemies-at-random-period/ - didn't end up using this
-        this.time.delayedCall(2500, () => { 
-            this.ship02 = new Ball(this, game.config.width + borderUISize*6, Phaser.Math.Between(0, this.game.config.height), 'ball', 0, 1).setOrigin(0, 0); 
-        });
-
 
         // set up difficulty timer (triggers callback every second)
         //nAltice paddle runner
@@ -110,20 +109,26 @@ class Play extends Phaser.Scene {
         let platform = new Platform(this, this.objectSpeed - randSpeed);
         this.platformGroup.add(platform);
     }
-    //addBall() {
-    //}
+    addBall() {
+        let randSpeed = Phaser.Math.Between(0, 40);
+        let ball = new Ball(this, this.objectSpeed - randSpeed);
+        this.ballGroup.add(ball);
+    }
 
     update() {
+        this.sunset.tilePositionX += 4;
+        
         //check collisions
         if(!p1Dart.destroyed) {
             // check for player input
             if(cursors.up.isDown) {
-                p1Dart.body.velocity.y -= paddleVelocity;
+                p1Dart.body.velocity.y -= dartVelocity;
             } else if(cursors.down.isDown) {
-                p1Dart.body.velocity.y += paddleVelocity;
+                p1Dart.body.velocity.y += dartVelocity;
             }
             // check for collisions
             this.physics.world.collide(p1Dart, this.platformGroup, this.platformCollision, null, this);
+            this.physics.world.collide(p1Dart, this.ballGroup, this.ballCollision, null, this);
         }
 
         //check key input for restart
@@ -132,14 +137,6 @@ class Play extends Phaser.Scene {
         }
         if (p1Dart.destroyed && Phaser.Input.Keyboard.JustDown(keyLEFT)) {
             this.scene.start("menuScene");
-        }
-
-        this.sunset.tilePositionX += 4;
-
-        if(!this.gameOver) {
-            this.p1Dart.update();
-            this.ship01.update();
-            this.ship02.update();
         }
     }
 
@@ -154,13 +151,13 @@ class Play extends Phaser.Scene {
         }
     }
 
-    ballPop(ship) {
-        this.ship02.anims.play('pop');             //play explode animation
-        this.ship02.on('animationcomplete', () => {                      
-            this.ship02.destroy();
+    ballCollision() {
+        this.ball.anims.play('pop');             //play explode animation
+        this.ball.on('animationcomplete', () => {                      
+            this.ball.destroy();
         });
-        //score add and repaint
-        this.p1Score += ship.points;
+
+        this.p1Score ++;
         this.scoreLeft.text = this.p1Score;      
 
         this.sound.play("sfx_pop");
