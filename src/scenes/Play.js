@@ -69,9 +69,6 @@ class Play extends Phaser.Scene {
             this.addBall();
         });
 
-        //https://phaser.discourse.group/t/random-spawning/3318
-        //https://www.html5gamedevs.com/topic/21724-spawning-enemies-at-random-period/ - didn't end up using this
-
         // set up difficulty timer (triggers callback every second)
         //nAltice paddle runner
         this.difficultyTimer = this.time.addEvent({
