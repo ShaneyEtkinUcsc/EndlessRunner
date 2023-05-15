@@ -47,6 +47,7 @@ let borderUISize = game.config.height / 15;
 let borderPadding = borderUISize / 3;
 
 // define globals
+let p1Dart = null;
 let level;
 let centerX = game.config.width/2;
 let centerY = game.config.height/2;
