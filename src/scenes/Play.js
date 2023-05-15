@@ -53,19 +53,20 @@ class Play extends Phaser.Scene {
         p1Dart.setImmovable();
         p1Dart.setMaxVelocity(0, 600);
 
-        //add platform and ball
-        // wait a few seconds before spawning - nAltice paddle game
-        /*
-        this.time.delayedCall(2500, () => { 
-            this.addPlatform(); 
+
+        this.platformGroup = this.add.group({
+            runChildUpdate: true
         });
-        */
+        this.ballGroup = this.add.group({
+            runChildUpdate: true
+        });
+
+        this.time.delayedCall(2500, () => { 
+            this.addPlatform();
+        });
 
         //https://phaser.discourse.group/t/random-spawning/3318
-        //https://www.html5gamedevs.com/topic/21724-spawning-enemies-at-random-period/
-        this.time.delayedCall(2500, () => { 
-            this.ship01 = new Platform(this, game.config.width, Phaser.Math.Between(0, this.game.config.height), 'platform', 0).setOrigin(0, 0); 
-        });
+        //https://www.html5gamedevs.com/topic/21724-spawning-enemies-at-random-period/ - didn't end up using this
         this.time.delayedCall(2500, () => { 
             this.ship02 = new Ball(this, game.config.width + borderUISize*6, Phaser.Math.Between(0, this.game.config.height), 'ball', 0, 1).setOrigin(0, 0); 
         });
@@ -107,12 +108,13 @@ class Play extends Phaser.Scene {
         this.gameOver = false;
     }
 
-    /*
     addPlatform() {
+        let randSpeed = Phaser.Math.Between(0, 60);
+        let platform = new Platform(this, this.platformSpeed - randSpeed);
+        this.platformGroup.add(platform);
     }
-    addBall() {
-    }
-    */
+    //addBall() {
+    //}
 
     update() {
         //check collisions

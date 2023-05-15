@@ -44,6 +44,8 @@ class Menu extends Phaser.Scene {
     }
 
     update() {
+        this.sunset.tilePositionX += 4;
+        
         if (Phaser.Input.Keyboard.JustDown(keyRIGHT)) {
             //easy mode
             game.settings = {

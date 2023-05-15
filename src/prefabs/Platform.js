@@ -1,29 +1,27 @@
 //platform prefab
-class Platform extends Phaser.GameObjects.Sprite {
-    constructor(scene, x, y, texture, frame) {
-        super(scene, x, y, texture, frame);
-        scene.add.existing(this);
-        //this.parentScene = scene;
-        //this.parentScene.add.existing(this);
-        this.moveSpeed = game.settings.platformSpeed;
-        //this.newPlatform = true;
+class Platform extends Phaser.Physics.Arcade.Sprite {
+    constructor(scene, velocity) {
+        super(scene, game.config.width, Phaser.Math.Between(0, this.game.config.height), 'platform'); 
+        
+        this.parentScene = scene;  
+
+        // set up physics sprite
+        this.parentScene.add.existing(this);  
+        this.parentScene.physics.add.existing(this); 
+        this.setVelocityX(velocity); 
+        this.setImmovable();                    
+        this.newPlatform = true;
     }
 
     update() {
-        //if(this.newPlatform && this.x < centerX) {
-        //    this.parentScene.addPlatform();
-        //    this.newPlatform = false;
-        //}
+        if(this.newPlatform && this.x < centerX) {
+            // recursively calling
+            this.parentScene.addPlatform(this.parent, this.velocity);
+            this.newPlatform = false;
+        }
 
-        this.x -= this.moveSpeed;
-
-        if(this.x <= 0 - this.width) {
+        if(this.x < -this.width) {
             this.destroy();
         }
     }
-
-    //position reset
-    //reset() {
-    //    this.x = game.config.width;
-    //}
 }
