@@ -15,7 +15,7 @@ class Play extends Phaser.Scene {
 
         // reset parameters
         level = 0;
-        objectSpeed = -450;
+        this.objectSpeed = -450;
         
         // set up audio, play bgm
         this.bgm = this.sound.add('music', { 
