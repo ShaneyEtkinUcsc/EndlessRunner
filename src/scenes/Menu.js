@@ -35,6 +35,7 @@ class Menu extends Phaser.Scene {
         this.add.text(game.config.width/2, game.config.height/2, 'Use arrows to move, jump on the platforms and avoid obstacles', menuConfig).setOrigin(0.5);
         menuConfig.fontSize = '20px';
         this.add.text(game.config.width/2, game.config.height/2 + borderUISize + borderPadding, 'Press -> to start', menuConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, 40, 'Music by Pinrecords, assets by Shaney Etkin', menuConfig).setOrigin(0.5);
 
         //define keys
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
