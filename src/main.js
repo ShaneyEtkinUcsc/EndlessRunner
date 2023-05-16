@@ -1,14 +1,18 @@
 /*
 Name: Shaney Etkin
 Game title: Dart Throw
-Approx. hrs: ~28 :(
+Approx. hrs: ~32 :(
 Creative tilt justification:
- - I'm not sure if I did anything necessarily new technically,
- but I tried to make it so that the platforms and balls would
- spawn at random y coordinates. I also have two different enemy
- sprites - one collision kills you whereas the other increases
- you score.
- - I really like my pixelart for this game. I experimented with 
+ - TECHNICAL ASPECT: I tried to make it so that the platforms and balls would
+ spawn at random y coordinates using math.between(0, game height). 
+ I also have two different enemy sprites - one collision kills you 
+ whereas the other increases your score. To acheive the score 
+ increase, I had to figure out how to check each individual
+ child's collision rather than checking the entire group.
+ //https://stackoverflow.com/questions/56082396/how-to-get-a-single-member-from-a-group-in-phaser-3
+ ^ this chain was super helpful in figuring that out!!
+
+ - CREATIVE ASPECT: I really like my pixelart for this game. I experimented with 
  new blending techniques on the background and the platform, and 
  i created multiple animations for the ball, although i didn't end 
  up using the second one.

@@ -125,18 +125,14 @@ class Play extends Phaser.Scene {
             }
             // check for collisions
             this.physics.world.collide(p1Dart, this.platformGroup, this.platformCollision, null, this);
-            this.physics.world.collide(p1Dart, this.ballGroup, this.ballCollision, null, this);
+            for(let ball of this.ballGroup.getChildren()) {
+                if(!ball.destroyed) {
+                    this.physics.world.collide(p1Dart, ball, this.ballCollision, null, this);
+                }
+            }
+            //Array.from(this.ballGroup).forEach(ball => this.physics.world.collide(p1Dart, ball, this.ballCollision, null, this));
+            //this.physics.world.collide(p1Dart, this.ballGroup, this.ballCollision, null, this);
         }
-
-        //check key input for restart
-        /*
-        if (p1Dart.destroyed && Phaser.Input.Keyboard.JustDown(keyRIGHT)) {
-            this.scene.restart();
-        }
-        if (p1Dart.destroyed && Phaser.Input.Keyboard.JustDown(keyLEFT)) {
-            this.scene.start("menuScene");
-        }
-        */
     }
 
     levelBump() {
@@ -150,10 +146,11 @@ class Play extends Phaser.Scene {
         }
     }
 
-    ballCollision() {
-        this.ball.anims.play('pop');             //play explode animation
-        this.ball.once(Phaser.Animations.Events.SPRITE_ANIMATION_COMPLETE, () => {                      
-            this.ball.destroy();
+    ballCollision(dart, ball) {
+        ball.destroyed = true;
+        ball.play('pop');             //play explode animation
+        ball.once(Phaser.Animations.Events.SPRITE_ANIMATION_COMPLETE, () => {                      
+            ball.destroy();
         });
 
         this.p1Score ++;
