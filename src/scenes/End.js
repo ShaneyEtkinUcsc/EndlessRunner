@@ -25,6 +25,7 @@ class End extends Phaser.Scene {
 
         //show end text
         this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', endConfig).setOrigin(0.5);
+        menuConfig.fontSize = '20px';
         this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press -> to Restart or <- for Menu', endConfig).setOrigin(0.5);
 
         //define keys

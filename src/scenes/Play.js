@@ -151,7 +151,7 @@ class Play extends Phaser.Scene {
     }
 
     ballCollision() {
-        this.ball.play('pop');             //play explode animation
+        this.ball.anims.play('pop');             //play explode animation
         this.ball.once(Phaser.Animations.Events.SPRITE_ANIMATION_COMPLETE, () => {                      
             this.ball.destroy();
         });
@@ -178,6 +178,6 @@ class Play extends Phaser.Scene {
         p1Dart.destroy();
 
         //nAltice
-        this.time.delayedCall(4000, () => { this.scene.start('endScene'); });
+        this.time.delayedCall(3000, () => { this.scene.start('endScene'); });
     }
 }
