@@ -1,7 +1,7 @@
 //ball prefab
 class Ball extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, velocity) {
-        super(scene, game.config.width, Phaser.Math.Between(0, this.game.config.height), 'ball'); 
+        super(scene, game.config.width, Phaser.Math.Between(0, game.config.height), 'ball'); 
         
         this.parentScene = scene;  
 
