@@ -176,5 +176,8 @@ class Play extends Phaser.Scene {
         });
        
         p1Dart.destroy();
+
+        //nAltice
+        this.time.delayedCall(4000, () => { this.scene.start('endScene'); });
     }
 }
