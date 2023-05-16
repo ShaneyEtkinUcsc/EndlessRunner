@@ -149,7 +149,7 @@ class Play extends Phaser.Scene {
     }
 
     ballCollision() {
-        this.ball.anims.play('pop');             //play explode animation
+        this.ball.play('pop');             //play explode animation
         this.ball.on('animationcomplete', () => {                      
             this.ball.destroy();
         });
