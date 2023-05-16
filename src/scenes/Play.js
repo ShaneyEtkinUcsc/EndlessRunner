@@ -102,12 +102,12 @@ class Play extends Phaser.Scene {
     }
 
     addPlatform() {
-        let randSpeed = Phaser.Math.Between(0, 5);
+        let randSpeed = Phaser.Math.Between(0, 10);
         let platform = new Platform(this, this.objectSpeed - randSpeed);
         this.platformGroup.add(platform);
     }
     addBall() {
-        let randSpeed = Phaser.Math.Between(0, 5);
+        let randSpeed = Phaser.Math.Between(0, 10);
         let ball = new Ball(this, this.objectSpeed - randSpeed);
         this.ballGroup.add(ball);
     }
