@@ -14,8 +14,8 @@ Creative tilt justification:
 
  - CREATIVE ASPECT: I really like my pixelart for this game. I experimented with 
  new blending techniques on the background and the platform, and 
- i created multiple animations for the ball, although i didn't end 
- up using the second one.
+ i created multiple animations for the ball. Originally I decided against using the second one,
+ but I added it in anyway and it looks strange, but it does look more interactive!
 
 //https://phaser.discourse.group/t/random-spawning/3318
 //https://www.html5gamedevs.com/topic/21724-spawning-enemies-at-random-period/ - didn't end up using this

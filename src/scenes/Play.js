@@ -33,6 +33,7 @@ class Play extends Phaser.Scene {
         // set up animations for texture atlas
         this.frameNames = this.textures.get('ball').getFrameNames();
         // THE BALL WAS GONNA BE THE PLAYER, BUT I CHANGED IT TO THE POINTS YOU GET SO BOUNCE ANIM WONT BE USED :(
+        // NVM I ADDED IT ANYWAY AND NOW THEY'RE JUST WEIRD FLOATING WIGGLING BALLOON THINGS :)
         this.anims.create({
             key: 'pop',
             frames: [
@@ -41,6 +42,18 @@ class Play extends Phaser.Scene {
                 {key: 'ball', frame: "ballpop3.png" },
                 {key: 'ball', frame: "ballpop4.png" },
                 {key: 'ball', frame: "ballpop5.png" }
+            ], 
+            frameRate: 10,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'bounce',
+            frames: [
+                {key: 'ball', frame: "ballbounce1.png" },
+                {key: 'ball', frame: "ballbounce2.png" },
+                {key: 'ball', frame: "ballbounce3.png" },
+                {key: 'ball', frame: "ballbounce4.png" },
+                {key: 'ball', frame: "ballbounce5.png" }
             ], 
             frameRate: 10,
             repeat: -1
@@ -108,7 +121,7 @@ class Play extends Phaser.Scene {
     }
     addBall() {
         let randSpeed = Phaser.Math.Between(0, 10);
-        let ball = new Ball(this, this.objectSpeed - randSpeed);
+        let ball = new Ball(this, this.objectSpeed - randSpeed).play('bounce');
         this.ballGroup.add(ball);
     }
 
@@ -141,7 +154,7 @@ class Play extends Phaser.Scene {
 
         // bump speed every 5 levels
         if(level % 5 == 0) {
-            this.objectSpeed -= 5;
+            this.objectSpeed -= 10;
             this.bgm.rate += 0.01; // increase bgm playback rate
         }
     }
