@@ -15,7 +15,7 @@ class Play extends Phaser.Scene {
 
         // reset parameters
         level = 0;
-        this.objectSpeed = -40;
+        this.objectSpeed = -60;
         
         // set up audio, play bgm
         this.bgm = this.sound.add('music', { 
@@ -174,6 +174,18 @@ class Play extends Phaser.Scene {
         });
        
         p1Dart.destroy();
+
+        let scoreConfig = {
+            fontFamily: 'Courier',
+            fontSize: '28px',
+            color: '#000',
+            align: 'right',
+            padding: {
+                top: 5,
+                bottom: 5,
+            },
+            fixedWidth: 100
+        }
         
         this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0.5);
         this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press -> to Restart or <- for Menu', scoreConfig).setOrigin(0.5);
