@@ -149,8 +149,8 @@ class Play extends Phaser.Scene {
     }
 
     ballCollision() {
-        this.ball.play('pop');             //play explode animation
-        this.ball.on('animationcomplete', () => {                      
+        ball.play('pop');             //play explode animation
+        ball.once(Phaser.Animations.Events.SPRITE_ANIMATION_COMPLETE, () => {                      
             this.ball.destroy();
         });
 
