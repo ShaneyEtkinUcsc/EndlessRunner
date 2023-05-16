@@ -129,12 +129,14 @@ class Play extends Phaser.Scene {
         }
 
         //check key input for restart
+        /*
         if (p1Dart.destroyed && Phaser.Input.Keyboard.JustDown(keyRIGHT)) {
             this.scene.restart();
         }
         if (p1Dart.destroyed && Phaser.Input.Keyboard.JustDown(keyLEFT)) {
             this.scene.start("menuScene");
         }
+        */
     }
 
     levelBump() {
@@ -174,20 +176,5 @@ class Play extends Phaser.Scene {
         });
        
         p1Dart.destroy();
-
-        let scoreConfig = {
-            fontFamily: 'Courier',
-            fontSize: '18px',
-            color: '#000000',
-            align: 'right',
-            padding: {
-                top: 5,
-                bottom: 5,
-            },
-            fixedWidth: 100
-        }
-        
-        this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0.5);
-        this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press -> to Restart or <- for Menu', scoreConfig).setOrigin(0.5);
     }
 }
